@@ -8,3 +8,6 @@
 #ifndef ESCAPEROOM_EscapeRoomGameModeBase_generated_h
 	#include "EscapeRoomGameModeBase.h"
 #endif
+#ifndef ESCAPEROOM_PositionReport_generated_h
+	#include "PositionReport.h"
+#endif
