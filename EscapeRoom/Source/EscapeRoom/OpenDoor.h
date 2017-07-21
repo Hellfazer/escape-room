@@ -5,7 +5,9 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Engine/TriggerVolume.h"
+
 #include "OpenDoor.generated.h"
+
 
 
 
@@ -22,15 +24,29 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	void OpenDoor();
+	void CloseDoor();
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
 	UPROPERTY(VisibleAnywhere)
-	float OpenAngle = 90.0f;
+	float OpenAngle = -75.0f;
+
+    UPROPERTY(VisibleAnywhere)
+	float ClosedAngle = 0.0f;
+
 	UPROPERTY(EditAnywhere)
 	ATriggerVolume* PressurePlate;
+
+	UPROPERTY(EditAnywhere)
+	AActor* ActorThatOpens; //Remember Pawn inherits from actor
+	AActor* Owner;
 		
-	
+	UPROPERTY(EditAnywhere)
+	float DoorCloseDelay = 1;
+
+	float LastDoorOpenTime;
 };

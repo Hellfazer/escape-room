@@ -8,6 +8,9 @@ EscapeRoom/Content/StarterContent/
 */Binaries
 */Intermediate
 */Saved
+
+### Visual Studio ###
 *.VC.db
 .vs/*
 *.ipch
+*.suo
