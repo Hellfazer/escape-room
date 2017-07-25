@@ -46,7 +46,7 @@ private:
 	AActor* Owner;
 		
 	UPROPERTY(EditAnywhere)
-	float DoorCloseDelay = 1;
+	float DoorCloseDelay = 0.1f;
 
 	float LastDoorOpenTime;
 };
