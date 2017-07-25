@@ -14,3 +14,5 @@ EscapeRoom/Content/StarterContent/
 .vs/*
 *.ipch
 *.suo
+*.VC.opendb
+*.sln
