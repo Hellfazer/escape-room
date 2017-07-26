@@ -1,14 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "OpenDoor.h"
-#include "Gameframework/Actor.h"
+#include "GameFramework/Actor.h"
 #include "Engine/World.h"
 #include "PhysicsEngine/PhysicsHandleComponent.h"
 #include "PhysicsEngine/PhysicsCollisionHandler.h"
-#include "Gameframework/PlayerController.h"
-
-
-
-
+#include "GameFramework/PlayerController.h"
 
 
 // Sets default values for this component's properties
@@ -29,10 +25,6 @@ void UOpenDoor::BeginPlay()
 	Owner = GetOwner();
 }
 
-void UOpenDoor::OpenDoor()
-{
-	Owner->SetActorRotation(FRotator(0.0f, OpenAngle, 0.0f));
-}
 
 void UOpenDoor::CloseDoor()
 {
@@ -46,18 +38,16 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	if (GetTotalMassOfActorsOnPlate() > PressurePlateWeight) {
-		OpenDoor();
-		LastDoorOpenTime = GetWorld()->GetTimeSeconds();
-	}
-
-	if (LastDoorOpenTime + DoorCloseDelay < GetWorld()->GetTimeSeconds()) {
-		CloseDoor();
+		OnOpen.Broadcast();
+	}else{
+		OnClose.Broadcast();
 	}
 
 }
 
 float UOpenDoor::GetTotalMassOfActorsOnPlate()
 {
+	if (!PressurePlate) { return 0.f; }
 	float TotalMass = 0.0f;
 	TArray<AActor*> OverlappingActors;
 	

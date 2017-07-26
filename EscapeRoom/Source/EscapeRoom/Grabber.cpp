@@ -32,7 +32,7 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	if (PhysicsHandler->GrabbedComponent) {
+	if (PhysicsHandler && PhysicsHandler->GrabbedComponent) {
 		PhysicsHandler->SetTargetLocation(GetReachLineEnd());
 	}
 }
@@ -42,7 +42,7 @@ void UGrabber::Grab() {
 
 	//LINE TRACE and reach any actors with physics collision channel set
 	auto HitResult = GetFirstPhysicsBodyInReach();
-	auto ComponentToGrab = HitResult.GetComponent();
+	UPrimitiveComponent* ComponentToGrab = HitResult.GetComponent();
 	auto ActorHit = HitResult.GetActor();
 
 	//if we hit something then atttach a physics handle
@@ -58,6 +58,7 @@ void UGrabber::Grab() {
 }
 
 void UGrabber::Release() {
+	if (!PhysicsHandler) { return; }
 	PhysicsHandler->ReleaseComponent();
 }
 
